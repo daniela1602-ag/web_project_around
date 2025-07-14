@@ -1,7 +1,13 @@
+.body {
+  background-color: #000000;
+}
+
 .page {
   font-family: "Inter", Arial, Helvetica, sans-serif;
   color: #ffffff;
   background: #000000;
-  max-width: 100%;
-  height: 1217px;
+  max-width: 1280px;
+
+  height: 100%;
+  margin: 0 auto;
 }
