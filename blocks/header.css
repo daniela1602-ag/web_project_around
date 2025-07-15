@@ -2,8 +2,8 @@
 }
 
 .header__container {
-  max-width: 1280px;
-  padding: 0 200px;
+  max-width: 880px;
+
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -17,4 +17,15 @@
   width: 100%;
   border: 1px solid #545454;
   margin-top: 20px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 544px) {
+  .header__container {
+    margin: 28px auto;
+    padding: 0 27px;
+  }
+
+  .header__grey-line {
+    margin-top: 32px;
+  }
 }
