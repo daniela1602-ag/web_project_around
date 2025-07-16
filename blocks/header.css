@@ -24,6 +24,9 @@
     margin: 28px auto;
     padding: 0 27px;
   }
+  .header__title {
+    width: 150px;
+  }
 
   .header__grey-line {
     margin-top: 32px;

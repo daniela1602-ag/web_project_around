@@ -33,7 +33,7 @@
             <h2 class="profile__info-name">Jacques Cousteau</h2>
             <p class="profile__info-job">Explorador</p>
 
-            <div class="profile__info-edit-button">
+            <div id="openModal" class="profile__info-edit-button">
               <img
                 class="profile__info-edit-button-pen"
                 src="./images/vectorlapiz.svg"
@@ -133,6 +133,40 @@
           </div>
         </section>
       </main>
+      <div id="modal" class="modal">
+        <div class="modal__content">
+          <img
+            id="closeModal"
+            class="modal__close-icon"
+            src="./images/closeicon.svg"
+            alt="Close"
+          />
+          <h2 class="modal__title">Editar perfil</h2>
+          <form id="editProfileForm" class="modal__profile-form">
+            <label for="name">Nombre</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Nombre"
+              class="modal__profile-input"
+              required
+            />
+
+            <label for="about">Acerca de mi</label>
+            <input
+              type="text"
+              id="about"
+              name="about"
+              placeholder="Acerca de mi"
+              class="modal__profile-input"
+              required
+            ></input>
+
+            <button id = "acc" type="submit" class="modal__profile-submit">Guardar</button>
+          </form>
+        </div>
+      </div>
       <footer class="footer">
         <div>
           <p class="footer__copyright">© 2025 Around The U.S.</p>
@@ -140,6 +174,6 @@
       </footer>
     </div>
 
-    <script></script>
+    <script src="./index.js"></script>
   </body>
 </html>
