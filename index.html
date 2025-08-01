@@ -42,8 +42,9 @@
             </div>
           </div>
 
-          <div class="profile__add-button">
+          <div id="openPopup" class="profile__add-button">
             <img
+
               class="profile__add-button-plus"
               src="./images/vectorplus.svg"
               alt="signo de más"
@@ -52,84 +53,8 @@
         </section>
         <section class="elements">
           <div class="elements__container">
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/goldengates.jpg"
-                alt="vista al puente golden gates, San Francisco"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Golden Gates Bridge</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/valledeyosemite.jpg"
-                alt="paisaje de un río en medio de un bosque"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Valle de Yosemite</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/montañas.jpg"
-                alt="paisaje de unas montañas"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Montañas Calvas</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/lake.jpg"
-                alt="paisaje de un  gran lago y montañas alrededor"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Lago Louise</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/latemar.jpg"
-                alt="paisaje de montañas rocosas en vista nocturna"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Latemar</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
-            <div class="elements__card-image">
-              <img
-                class="elements__image"
-                src="./images/vanois.jpg"
-                alt="paisaje de un lago y montañas"
-              />
-              <div class="elements__card-image-rectangle">
-                <h3 class="elements__card-image-text">Vanois National Park</h3>
-                <div class="elements__card-image-button">
-                  <img src="./images/vectorcorazon.svg" />
-                </div>
-              </div>
-            </div>
+
+
           </div>
         </section>
       </main>
@@ -165,6 +90,52 @@
 
             <button id = "acc" type="submit" class="modal__profile-submit">Guardar</button>
           </form>
+        </div>
+      </div>
+
+      <div id="popup" class="modal">
+        <div class="modal__content">
+          <img
+            id="closePopup"
+            class="modal__close-icon"
+            src="./images/closeicon.svg"
+            alt="Close"
+          />
+          <h2 class="modal__title">Nuevo lugar</h2>
+          <form id="popupEditImg" class="modal__profile-form">
+            <label for="title">Titulo</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Titulo"
+              class="modal__profile-input"
+              required
+            />
+
+            <label for="imgLink">Enlace a la imagen</label>
+            <input
+              type="url"
+              id="imgLink"
+              name="imgLink"
+              placeholder="Enlace a la imagen"
+              class="modal__profile-input"
+              required
+            ></input>
+
+            <button id = "submitButton" type="submit" class="modal__profile-submit">Crear</button>
+          </form>
+        </div>
+      </div>
+      <div class="modal popup_type_image">
+        <div class="popup__image-container">
+          <img
+            id="closePopupImg"
+            class="modal__close-icon"
+            src="./images/closeicon.svg"
+            alt="Close"
+          />
+          <img class="popup__image" src="" alt="imagen ampliada"/>
         </div>
       </div>
       <footer class="footer">
