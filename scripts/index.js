@@ -81,10 +81,41 @@ function assignEvents(cardElement, cardData) {
 
 function createCard(cardData) {
   //declaracion de variables
-  const card = document.createElement("div");
+  const container = document.querySelector(".elements__container");
 
+  const card = document.createElement("div");
   card.classList.add("elements__card-image");
 
+  const elementImage = document.createElement("img");
+  elementImage.classList.add("elements__image");
+  elementImage.src = cardData.link;
+  elementImage.alt = cardData.name;
+
+  const trashElement = document.createElement("img");
+  trashElement.classList.add("elements__card-delete-button");
+  trashElement.src = "./images/trash.svg";
+  trashElement.alt = "Eliminar";
+
+  const rectangle = document.createElement("div");
+  rectangle.classList.add("elements__card-image-rectangle");
+
+  const cardText = document.createElement("h3");
+  cardText.classList.add("elements__card-image-text");
+  cardText.textContent = cardData.name;
+
+  const cardLike = document.createElement("div");
+  cardLike.classList.add("elements__card-image-button");
+
+  const like = document.createElement("img");
+  like.classList.add("elements__card-like-icon");
+  like.src = "./images/vectorcorazon.svg";
+  like.alt = "like";
+
+  cardLike.append(like);
+  rectangle.append(cardText, cardLike);
+  card.append(elementImage, trashElement, rectangle);
+  container.append(card);
+  /*
   card.innerHTML = `
   <img class="elements__image" src="${cardData.link}" alt="imagen de ${cardData.name}" />
   <img class="elements__card-delete-button" src="./images/trash.svg" alt="Eliminar" />
@@ -95,6 +126,8 @@ function createCard(cardData) {
    </div>
   </div>
   `;
+
+   */
 
   const likeButton = card.querySelector(".elements__card-image-button");
   const likeIcon = card.querySelector(".elements__card-like-icon");
