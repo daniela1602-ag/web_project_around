@@ -69,6 +69,17 @@ function assignEvents(cardElement, cardData) {
   closeImagen.addEventListener("click", function () {
     popupImage.classList.remove("modal--active");
   });
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      popupImage.classList.remove("modal--active");
+    }
+  });
+
+  popupImage.addEventListener("click", function (event) {
+    if (event.target === popupImage) {
+      popupImage.classList.remove("modal--active");
+    }
+  });
 
   imgCardElement.addEventListener("click", function () {
     popupImage.classList.add("modal--active");
@@ -172,6 +183,11 @@ openButton.addEventListener("click", function () {
 closeButton.addEventListener("click", function () {
   modal.classList.remove("modal--active");
 });
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    modal.classList.remove("modal--active");
+  }
+});
 
 // aplicacion de eventos de modal(popup)
 
@@ -182,12 +198,29 @@ openPopup.addEventListener("click", function () {
 closePopup.addEventListener("click", function () {
   popup.classList.remove("modal--active");
 });
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    popup.classList.remove("modal--active");
+  }
+});
 
 popup.addEventListener("click", function (event) {
   if (event.target === popup) {
     popup.classList.remove("modal--active");
   }
 });
+
+/*formP.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  let titulo = formP.title.value;
+  let url = formP.imgLink.value;
+
+  document.querySelector(".profile__info-name").textContent = titulo;
+  document.querySelector(".profile__info-job").textContent = url;
+
+  popup.classList.remove("modal--active");
+});*/
 
 //aplicacion de eventos de form1(editProfileForm)
 
@@ -203,7 +236,7 @@ form.addEventListener("submit", function (event) {
   modal.classList.remove("modal--active");
 });
 
-form.addEventListener("keyup", function (event) {
+/*form.addEventListener("keyup", function (event) {
   let nombre = form.name.value;
   let acercaDeMi = form.about.value;
 
@@ -212,7 +245,7 @@ form.addEventListener("keyup", function (event) {
   } else {
     form.acc.classList.add("modal__submit--active");
   }
-});
+});*/
 
 //aplicacion de eventos para guardar titulo y url de nueva imagen
 
@@ -255,23 +288,4 @@ initialCards.forEach((cardData) => {
   assignEvents(cardElement, cardData);
 });
 
-/*const popupImage =
-  document.querySelector(".popup_type_image"); /* ventana de imagen ampliada
-const popupImg = popupImage.querySelector(".popup__image");
-const closeImagen = document.getElementById("closePopupImg");
-
-function openImagePopup(src, alt) {
-  popupImg.src = src;
-  popupImg.alt = alt;
-  popupImage.classList.add("popup_opened");
-}
-
-closeImagen.addEventListener("click", function () {
-  popupImage.classList.remove("modal--active");
-});
-
-document.querySelectorAll(".elements__image").forEach((img) => {
-  img.addEventListener("click", () => {
-    openImagePopup(img.src, img.alt);
-  });
-});*/
+console.log("form:", form);

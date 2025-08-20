@@ -67,27 +67,37 @@
             alt="Close"
           />
           <h2 class="modal__title">Editar perfil</h2>
-          <form id="editProfileForm" class="modal__profile-form">
-            <label for="name">Nombre</label>
-            <input
+          <form id="editProfileForm" class="modal__profile-form" novalidate>
+            <div class="modal__fields">
+            <label for="name">Nombre
+             <input
               type="text"
               id="name"
               name="name"
               placeholder="Nombre"
               class="modal__profile-input"
+              minlength="2"
+              maxlength="40"
               required
-            />
-
-            <label for="about">Acerca de mi</label>
-            <input
+             >/>
+             <span class="form__input-error name-error"></span>
+            </label>
+            </div>
+            <div >
+            <label for="about">
+             <input
               type="text"
               id="about"
               name="about"
               placeholder="Acerca de mi"
               class="modal__profile-input"
+              minlength="2"
+              maxlength="200"
               required
-            ></input>
-
+             ></input>
+             <span class="form__input-error about-error"></span>
+            </label>
+            </div>
             <button id = "acc" type="submit" class="modal__profile-submit">Guardar</button>
           </form>
         </div>
@@ -102,27 +112,34 @@
             alt="Close"
           />
           <h2 class="modal__title">Nuevo lugar</h2>
-          <form id="popupEditImg" class="modal__profile-form">
-            <label for="title">Titulo</label>
-            <input
+          <form id="popupEditImg" class="modal__profile-form" novalidate>
+            <div>
+             <label for="title">Titulo
+              <input
               type="text"
               id="title"
               name="title"
               placeholder="Titulo"
               class="modal__profile-input"
+              minlength="2"
+              maxlength="30"
               required
-            />
-
-            <label for="imgLink">Enlace a la imagen</label>
-            <input
+              ></input>
+              <span class="form__input-error title-error"></span>
+             </label>
+            </div>
+            <div>
+             <label for="imgLink">Enlace a la imagen</label>
+             <input
               type="url"
               id="imgLink"
               name="imgLink"
               placeholder="Enlace a la imagen"
               class="modal__profile-input"
               required
-            ></input>
-
+             ></input>
+             <span class="form__input-error imgLink-error"></span>
+            </div>
             <button id = "submitButton" type="submit" class="modal__profile-submit">Crear</button>
           </form>
         </div>
@@ -144,6 +161,7 @@
         </div>
       </footer>
     </div>
+    <script src="./scripts/validate.js"></script>
 
     <script src="./scripts/index.js"></script>
   </body>

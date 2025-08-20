@@ -7,4 +7,6 @@ Tecnologías utilizadas: flexbox, grid layout, JavaScript básico.
 
 En la segunda parte del proyecto, se utilizaron mas que nada tecnologías de JavaScript: se activó el ícono de "like" de cada imagen, así como también se activo la función de eliminar imagenes, también se agregó nueva forma de agregar bloques de html por medio de js, y a su vez con ello, se añadieron imagenes y asi poder crear la función de crear nuevas imagenes , y por último crear una tercera ventana emergente para poder ver la imagen ampliada.
 
+En la Tercera parte del proyecto, se implemento mas que nada la validación de los formularios: específicamente utilizando el metodo de validityState para validar los datos de entrada, crear función para controlar el estado del botón submit, utilizar la función enableValidation para activar la validación, asi como tambien tomar como argumento un objeto que contiene clases y selectores, los cuales se utilizan luego en sus funciones anidadas. Tambien se añadió un detector de eventos que permite cerrarla pulsando esc.
+
 Mi proyecto: https://daniela1602-ag.github.io/web_project_around/
