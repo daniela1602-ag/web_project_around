@@ -44,7 +44,6 @@
 
           <div id="openPopup" class="profile__add-button">
             <img
-
               class="profile__add-button-plus"
               src="./images/vectorplus.svg"
               alt="signo de más"
@@ -52,12 +51,29 @@
           </div>
         </section>
         <section class="elements">
-          <div class="elements__container">
-
-
-          </div>
+          <div class="elements__container"></div>
         </section>
       </main>
+      <template id="card-template">
+        <div class="elements__card-image">
+          <img class="elements__image" src="" alt="" />
+          <img
+            class="elements__card-delete-button"
+            src="./images/trash.svg"
+            alt="Eliminar"
+          />
+          <div class="elements__card-image-rectangle">
+            <h3 class="elements__card-image-text"></h3>
+            <div class="elements__card-image-button">
+              <img
+                class="elements__card-like-icon"
+                src="./images/vectorcorazon.svg"
+                alt="like"
+              />
+            </div>
+          </div>
+        </div>
+      </template>
       <div id="modal" class="modal">
         <div class="modal__content">
           <img
@@ -69,36 +85,39 @@
           <h2 class="modal__title">Editar perfil</h2>
           <form id="editProfileForm" class="modal__profile-form" novalidate>
             <div class="modal__fields">
-            <label for="name">Nombre
-             <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="Nombre"
-              class="modal__profile-input"
-              minlength="2"
-              maxlength="40"
-              required
-             >/>
-             <span class="form__input-error name-error"></span>
-            </label>
+              <label for="name"
+                >Nombre
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Nombre"
+                  class="modal__profile-input"
+                  minlength="2"
+                  maxlength="40"
+                  required
+                />
+                <span class="form__input-error name-error"></span>
+              </label>
             </div>
-            <div >
-            <label for="about">
-             <input
-              type="text"
-              id="about"
-              name="about"
-              placeholder="Acerca de mi"
-              class="modal__profile-input"
-              minlength="2"
-              maxlength="200"
-              required
-             ></input>
-             <span class="form__input-error about-error"></span>
-            </label>
+            <div>
+              <label for="about">
+                <input
+                  type="text"
+                  id="about"
+                  name="about"
+                  placeholder="Acerca de mi"
+                  class="modal__profile-input"
+                  minlength="2"
+                  maxlength="200"
+                  required
+                />
+                <span class="form__input-error about-error"></span>
+              </label>
             </div>
-            <button id = "acc" type="submit" class="modal__profile-submit">Guardar</button>
+            <button id="acc" type="submit" class="modal__profile-submit">
+              Guardar
+            </button>
           </form>
         </div>
       </div>
@@ -114,33 +133,40 @@
           <h2 class="modal__title">Nuevo lugar</h2>
           <form id="popupEditImg" class="modal__profile-form" novalidate>
             <div>
-             <label for="title">Titulo
-              <input
-              type="text"
-              id="title"
-              name="title"
-              placeholder="Titulo"
-              class="modal__profile-input"
-              minlength="2"
-              maxlength="30"
-              required
-              ></input>
-              <span class="form__input-error title-error"></span>
-             </label>
+              <label for="title"
+                >Titulo
+                <input
+                  type="text"
+                  id="title"
+                  name="title"
+                  placeholder="Titulo"
+                  class="modal__profile-input"
+                  minlength="2"
+                  maxlength="30"
+                  required
+                />
+                <span class="form__input-error title-error"></span>
+              </label>
             </div>
             <div>
-             <label for="imgLink">Enlace a la imagen</label>
-             <input
-              type="url"
-              id="imgLink"
-              name="imgLink"
-              placeholder="Enlace a la imagen"
-              class="modal__profile-input"
-              required
-             ></input>
-             <span class="form__input-error imgLink-error"></span>
+              <label for="imgLink">Enlace a la imagen</label>
+              <input
+                type="url"
+                id="imgLink"
+                name="imgLink"
+                placeholder="Enlace a la imagen"
+                class="modal__profile-input"
+                required
+              />
+              <span class="form__input-error imgLink-error"></span>
             </div>
-            <button id = "submitButton" type="submit" class="modal__profile-submit">Crear</button>
+            <button
+              id="submitButton"
+              type="submit"
+              class="modal__profile-submit"
+            >
+              Crear
+            </button>
           </form>
         </div>
       </div>
@@ -152,7 +178,7 @@
             src="./images/closeicon.svg"
             alt="Close"
           />
-          <img class="popup__image" src="" alt="imagen ampliada"/>
+          <img class="popup__image" src=" " alt="imagen ampliada" />
         </div>
       </div>
       <footer class="footer">
@@ -161,8 +187,9 @@
         </div>
       </footer>
     </div>
-    <script src="./scripts/validate.js"></script>
-
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/FormValidator.js"></script>
+    <script type="module" src="./scripts/utils.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
   </body>
 </html>

@@ -1,8 +1,7 @@
-/*
-  Variables
-*/
+import Card from "./Card.js";
+// Variables
 
-initialCards = [
+let initialCards = [
   {
     name: "Golden Gates",
     link: "./images/goldengates.jpg",
@@ -44,130 +43,45 @@ const closePopup = document.getElementById("closePopup");
 
 const form = document.getElementById("editProfileForm");
 
-//variables div de tarjetas(.elements__container)
-const gallery = document.querySelector(".elements__container");
-
 // variables para agregar titulo y url
 
 const formP = document.getElementById("popupEditImg");
 const titleInput = document.getElementById("title");
 const urlImg = document.getElementById("imgLink");
 
+const gallery = document.querySelector(".elements__container");
 /*
   End Variables
 */
 
+// initcializacion del div(.elements__container), este div contine las tarjetas
+
+initialCards.forEach((cardData) => {
+  const card = new Card(cardData, "#card-template");
+  const cardElement = card.generateCard();
+  gallery.appendChild(cardElement);
+});
+
 /*
-  init Funciones
+  eventos para cerrar imagen ampliada
 */
+const closeImagen = document.getElementById("closePopupImg");
+const popupImage = document.querySelector(".popup_type_image");
 
-function assignEvents(cardElement, cardData) {
-  const closeImagen = document.getElementById("closePopupImg");
-  const popupImage = document.querySelector(".popup_type_image");
-  const imgCardElement = cardElement.querySelector(".elements__image");
-
-  closeImagen.addEventListener("click", function () {
+closeImagen.addEventListener("click", function () {
+  popupImage.classList.remove("modal--active");
+});
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
     popupImage.classList.remove("modal--active");
-  });
-  document.addEventListener("keydown", function (event) {
-    if (event.key === "Escape") {
-      popupImage.classList.remove("modal--active");
-    }
-  });
+  }
+});
 
-  popupImage.addEventListener("click", function (event) {
-    if (event.target === popupImage) {
-      popupImage.classList.remove("modal--active");
-    }
-  });
-
-  imgCardElement.addEventListener("click", function () {
-    popupImage.classList.add("modal--active");
-    const popupImg = popupImage.querySelector(".popup__image");
-
-    popupImg.src = cardData.link;
-    popupImg.alt = cardData.name;
-  });
-}
-
-function createCard(cardData) {
-  //declaracion de variables
-  const container = document.querySelector(".elements__container");
-
-  const card = document.createElement("div");
-  card.classList.add("elements__card-image");
-
-  const elementImage = document.createElement("img");
-  elementImage.classList.add("elements__image");
-  elementImage.src = cardData.link;
-  elementImage.alt = cardData.name;
-
-  const trashElement = document.createElement("img");
-  trashElement.classList.add("elements__card-delete-button");
-  trashElement.src = "./images/trash.svg";
-  trashElement.alt = "Eliminar";
-
-  const rectangle = document.createElement("div");
-  rectangle.classList.add("elements__card-image-rectangle");
-
-  const cardText = document.createElement("h3");
-  cardText.classList.add("elements__card-image-text");
-  cardText.textContent = cardData.name;
-
-  const cardLike = document.createElement("div");
-  cardLike.classList.add("elements__card-image-button");
-
-  const like = document.createElement("img");
-  like.classList.add("elements__card-like-icon");
-  like.src = "./images/vectorcorazon.svg";
-  like.alt = "like";
-
-  cardLike.append(like);
-  rectangle.append(cardText, cardLike);
-  card.append(elementImage, trashElement, rectangle);
-  container.append(card);
-  /*
-  card.innerHTML = `
-  <img class="elements__image" src="${cardData.link}" alt="imagen de ${cardData.name}" />
-  <img class="elements__card-delete-button" src="./images/trash.svg" alt="Eliminar" />
-  <div class="elements__card-image-rectangle">
-   <h3 class="elements__card-image-text">${cardData.name}</h3>
-   <div class="elements__card-image-button">
-     <img class="elements__card-like-icon" src="./images/vectorcorazon.svg" alt="like" />
-   </div>
-  </div>
-  `;
-
-   */
-
-  const likeButton = card.querySelector(".elements__card-image-button");
-  const likeIcon = card.querySelector(".elements__card-like-icon");
-
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("elements__card-image-button--active");
-
-    if (likeButton.classList.contains("elements__card-image-button--active")) {
-      likeIcon.src = "./images/vectorblack.svg";
-    } else {
-      likeIcon.src = "./images/vectorcorazon.svg";
-    }
-  });
-
-  const deleteButton = card.querySelector(".elements__card-delete-button");
-  deleteButton.addEventListener("click", () => {
-    card.remove();
-  });
-
-  return card;
-}
-
-/*
-  End Funciones
-*/
-
-/*
-  Begin of index.js
-*/
+popupImage.addEventListener("click", function (event) {
+  if (event.target === popupImage) {
+    popupImage.classList.remove("modal--active");
+  }
+});
 
 // aplicacion de eventos de modal(modal)
 modal.addEventListener("click", function (event) {
@@ -260,9 +174,10 @@ formP.addEventListener("submit", function (event) {
   if (newCard.name && newCard.link) {
     initialCards = [newCard, ...initialCards];
 
-    const cardElement = createCard(newCard);
+    const card = new Card(newCard, "#card-template");
+    const cardElement = card.generateCard();
+
     gallery.prepend(cardElement);
-    assignEvents(cardElement, newCard);
 
     formP.reset();
   }
@@ -279,13 +194,3 @@ formP.addEventListener("keyup", function (event) {
     formP.submitButton.classList.add("modal__submit--active");
   }
 });
-
-// initcializacion del div(.elements__container), este div contine las tarjetas
-
-initialCards.forEach((cardData) => {
-  const cardElement = createCard(cardData);
-  gallery.appendChild(cardElement);
-  assignEvents(cardElement, cardData);
-});
-
-console.log("form:", form);
