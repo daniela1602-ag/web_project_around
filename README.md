@@ -9,4 +9,9 @@ En la segunda parte del proyecto, se utilizaron mas que nada tecnologías de Jav
 
 En la Tercera parte del proyecto, se implemento mas que nada la validación de los formularios: específicamente utilizando el metodo de validityState para validar los datos de entrada, crear función para controlar el estado del botón submit, utilizar la función enableValidation para activar la validación, asi como tambien tomar como argumento un objeto que contiene clases y selectores, los cuales se utilizan luego en sus funciones anidadas. Tambien se añadió un detector de eventos que permite cerrarla pulsando esc.
 
+En la cuarta parte del proyecto se reorganizó el código de JS, utilizando POO, por ahora se utlizó la encapsulación que son los métodos privados y propiedades privadas de cada clase de Card y FormValidator, y después se llaman a los métodos públicos generateCard() y enableValidation() y tambien se hace la modularización: separación en el archivo por módulos para Card.js, FormValidator.js, utils.js e index.js
+No hubo herencia, me parece, ya que Card y FormValidator son clases independientes, y no heredan de una clase base.
+Tampoco hubo polimorfismo, no hay metodos sobrescritos.
+Tambien se implemento el uso de export e import entre los módulos.
+
 Mi proyecto: https://daniela1602-ag.github.io/web_project_around/

@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 // Variables
 
 let initialCards = [
@@ -29,32 +30,23 @@ let initialCards = [
   },
 ];
 
-// variables de primer modal(modal)
-const modal = document.getElementById("modal");
-const openButton = document.querySelector(".profile__info-edit-button");
-const closeButton = document.getElementById("closeModal");
-
-// variables de segunda modal(popup)
-const popup = document.getElementById("popup"); //ventana emergente 2
-const openPopup = document.getElementById("openPopup"); //boton editar 2
-const closePopup = document.getElementById("closePopup");
-
-//variables form1(editProfileForm)
-
-const form = document.getElementById("editProfileForm");
-
 // variables para agregar titulo y url
-
-const formP = document.getElementById("popupEditImg");
-const titleInput = document.getElementById("title");
+import { formP, titleInput } from "./utils.js";
 const urlImg = document.getElementById("imgLink");
 
 const gallery = document.querySelector(".elements__container");
-/*
-  End Variables
-*/
 
-// initcializacion del div(.elements__container), este div contine las tarjetas
+//objeto de config de validation
+const validationConfig = {
+  formSelector: ".modal__profile-form",
+  inputSelector: ".modal__profile-input",
+  submitButtonSelector: ".modal__profile-submit",
+  inactiveButtonClass: "popup__button_disabled",
+  inputErrorClass: "form__input_type_error",
+  errorClass: "form__input-error_active",
+};
+
+// instancia de Card
 
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#card-template");
@@ -62,104 +54,12 @@ initialCards.forEach((cardData) => {
   gallery.appendChild(cardElement);
 });
 
-/*
-  eventos para cerrar imagen ampliada
-*/
-const closeImagen = document.getElementById("closePopupImg");
-const popupImage = document.querySelector(".popup_type_image");
-
-closeImagen.addEventListener("click", function () {
-  popupImage.classList.remove("modal--active");
+// instancia de Formulario
+const forms = document.querySelectorAll(".modal__profile-form");
+forms.forEach((formElement) => {
+  const validator = new FormValidator(validationConfig, formElement);
+  validator.enableValidation();
 });
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    popupImage.classList.remove("modal--active");
-  }
-});
-
-popupImage.addEventListener("click", function (event) {
-  if (event.target === popupImage) {
-    popupImage.classList.remove("modal--active");
-  }
-});
-
-// aplicacion de eventos de modal(modal)
-modal.addEventListener("click", function (event) {
-  if (event.target === modal) {
-    modal.classList.remove("modal--active");
-  }
-});
-
-openButton.addEventListener("click", function () {
-  modal.classList.add("modal--active");
-});
-
-closeButton.addEventListener("click", function () {
-  modal.classList.remove("modal--active");
-});
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    modal.classList.remove("modal--active");
-  }
-});
-
-// aplicacion de eventos de modal(popup)
-
-openPopup.addEventListener("click", function () {
-  popup.classList.add("modal--active");
-});
-
-closePopup.addEventListener("click", function () {
-  popup.classList.remove("modal--active");
-});
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    popup.classList.remove("modal--active");
-  }
-});
-
-popup.addEventListener("click", function (event) {
-  if (event.target === popup) {
-    popup.classList.remove("modal--active");
-  }
-});
-
-/*formP.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  let titulo = formP.title.value;
-  let url = formP.imgLink.value;
-
-  document.querySelector(".profile__info-name").textContent = titulo;
-  document.querySelector(".profile__info-job").textContent = url;
-
-  popup.classList.remove("modal--active");
-});*/
-
-//aplicacion de eventos de form1(editProfileForm)
-
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  let nombre = form.name.value;
-  let acercaDeMi = form.about.value;
-
-  document.querySelector(".profile__info-name").textContent = nombre;
-  document.querySelector(".profile__info-job").textContent = acercaDeMi;
-
-  modal.classList.remove("modal--active");
-});
-
-/*form.addEventListener("keyup", function (event) {
-  let nombre = form.name.value;
-  let acercaDeMi = form.about.value;
-
-  if (nombre === "" || acercaDeMi === "") {
-    form.acc.classList.remove("modal__submit--active");
-  } else {
-    form.acc.classList.add("modal__submit--active");
-  }
-});*/
 
 //aplicacion de eventos para guardar titulo y url de nueva imagen
 
@@ -182,15 +82,4 @@ formP.addEventListener("submit", function (event) {
     formP.reset();
   }
   popup.classList.remove("modal--active");
-});
-
-formP.addEventListener("keyup", function (event) {
-  let titulo = formP.title.value;
-  let enlaceAlaImagen = formP.imgLink.value;
-
-  if (titulo === "" || enlaceAlaImagen === "") {
-    formP.submitButton.classList.remove("modal__submit--active");
-  } else {
-    formP.submitButton.classList.add("modal__submit--active");
-  }
 });
