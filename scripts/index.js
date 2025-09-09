@@ -42,8 +42,8 @@ const validationConfig = {
   inputSelector: ".modal__profile-input",
   submitButtonSelector: ".modal__profile-submit",
   inactiveButtonClass: "popup__button_disabled",
-  inputErrorClass: "form__input_type_error",
-  errorClass: "form__input-error_active",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__input-error_active",
 };
 
 // instancia de Card

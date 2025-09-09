@@ -21,7 +21,7 @@ export const titleInput = document.getElementById("title");
   eventos para cerrar imagen ampliada
 */
 const closeImagen = document.getElementById("closePopupImg");
-const popupImage = document.querySelector(".popup_type_image");
+const popupImage = document.querySelector(".modal_type_image");
 
 closeImagen.addEventListener("click", function () {
   popupImage.classList.remove("modal--active");

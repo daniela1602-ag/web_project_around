@@ -87,16 +87,16 @@
   opacity: 0.8;
 }
 
-.form__input-error {
+.modal__input-error {
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.form__input_type_error {
+.modal__input_type_error {
   border-bottom-color: red;
 }
 
-.form__input-error_active {
+.modal__input-error_active {
   opacity: 1 !important;
   color: #ff0000 !important;
   display: block !important;
@@ -144,7 +144,7 @@
     margin-bottom: 20px;
   }
 
-  .form__input-error_active {
+  .modal__input-error_active {
     font-size: 12px;
   }
 }

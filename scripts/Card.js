@@ -34,8 +34,8 @@ export default class Card {
 
   //metodo privado: visualización de imagen
   _handlePreviewImage() {
-    const popupImage = document.querySelector(".popup_type_image");
-    const popupImg = popupImage.querySelector(".popup__image");
+    const popupImage = document.querySelector(".modal_type_image");
+    const popupImg = popupImage.querySelector(".modal__image");
     popupImg.src = this._link;
     popupImg.alt = this._name;
 
