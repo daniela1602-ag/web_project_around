@@ -1,3 +1,32 @@
+// Variables
+
+export let initialCards = [
+  {
+    name: "Golden Gates",
+    link: "./images/goldengates.jpg",
+  },
+  {
+    name: "Austria",
+    link: "./images/austria.jpg",
+  },
+  {
+    name: "Monte Fuji",
+    link: "./images/montefuji.jpg",
+  },
+  {
+    name: "Árbol de cerezos, Japón",
+    link: "./images/cerezos.jpg",
+  },
+
+  {
+    name: "Escocia",
+    link: "./images/escocia.jpg",
+  },
+  {
+    name: "Playa de Tulum, Cancún",
+    link: "./images/playatulum.jpg",
+  },
+];
 // variables de primer modal(modal)
 const modal = document.getElementById("modal");
 const openButton = document.querySelector(".profile__info-edit-button");

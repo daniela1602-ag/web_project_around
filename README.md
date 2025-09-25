@@ -14,4 +14,6 @@ No hubo herencia, me parece, ya que Card y FormValidator son clases independient
 Tampoco hubo polimorfismo, no hay metodos sobrescritos.
 Tambien se implemento el uso de export e import entre los módulos.
 
+Quinta parte del proyecto: se refactorizó, esta vez se crearon las clases de Popup, PopupWithForm, PopupWithImage, Section y UserInfo, para organizar las tareas específicas para cada clase y comunicarse a traves de callbacks. Se implementó la herencia, con la clase Popup, y la encapsulación, con métodos privados en Popup y PopupWithForm. Tambien se implementó el acoplamiento debil.
+
 Mi proyecto: https://daniela1602-ag.github.io/web_project_around/

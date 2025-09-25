@@ -1,40 +1,10 @@
-import Card from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
-// Variables
-
-let initialCards = [
-  {
-    name: "Golden Gates",
-    link: "./images/goldengates.jpg",
-  },
-  {
-    name: "Austria",
-    link: "./images/austria.jpg",
-  },
-  {
-    name: "Monte Fuji",
-    link: "./images/montefuji.jpg",
-  },
-  {
-    name: "Árbol de cerezos, Japón",
-    link: "./images/cerezos.jpg",
-  },
-
-  {
-    name: "Escocia",
-    link: "./images/escocia.jpg",
-  },
-  {
-    name: "Playa de Tulum, Cancún",
-    link: "./images/playatulum.jpg",
-  },
-];
-
-// variables para agregar titulo y url
-import { formP, titleInput } from "./utils.js";
-const urlImg = document.getElementById("imgLink");
-
-const gallery = document.querySelector(".elements__container");
+import Section from "./components/Section.js";
+import Card from "./components/Card.js";
+import { FormValidator } from "./components/FormValidator.js";
+import { initialCards } from "./utils.js";
+import PopupWithForm from "./components/PopupWithForm.js";
+import PopupWithImage from "./components/PopupWithImage.js";
+import UserInfo from "./components/UserInfo.js";
 
 //objeto de config de validation
 const validationConfig = {
@@ -45,24 +15,71 @@ const validationConfig = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
+//instancia de la clase Section
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (cardData) => {
+      const card = new Card(cardData, "#card-template", handleCardClick);
+      const cardElement = card.generateCard();
+      cardSection.addInitialItem(cardElement);
+    },
+  },
+  ".elements__container"
+);
+cardSection.renderItems();
 
-// instancia de Card
-
-initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template");
+// Instancia de la clase PopupWithForm para agregar nuevas tarjetas
+//primero adatar la funcion callback
+function handleAddCardSubmit(FormData) {
+  const newCard = {
+    name: FormData.title,
+    link: FormData.imgLink,
+  };
+  const card = new Card(newCard, "#card-template", handleCardClick);
   const cardElement = card.generateCard();
-  gallery.appendChild(cardElement);
-});
+  cardSection.addNewItem(cardElement);
+  addCardPopup.close();
+}
 
-// instancia de Formulario
+const addCardPopup = new PopupWithForm("#popup", handleAddCardSubmit);
+addCardPopup.setEventListeners();
+
+//Instanciia de PopupWithForm para editar perfil
+function handleEditProfileSubmit(formData) {
+  userInfo.setUserInfo({
+    name: formData.name,
+    about: formData.about,
+  });
+  editProfilePopup.close();
+}
+const editProfilePopup = new PopupWithForm("#modal", handleEditProfileSubmit);
+editProfilePopup.setEventListeners();
+
+// instancia de Formulario FormValidator
 const forms = document.querySelectorAll(".modal__profile-form");
 forms.forEach((formElement) => {
   const validator = new FormValidator(validationConfig, formElement);
   validator.enableValidation();
 });
 
-//aplicacion de eventos para guardar titulo y url de nueva imagen
+//funcion handleCardClick de Card
+function handleCardClick(name, link) {
+  imagePopup.open(name, link);
+}
 
+//Instancia del popup de imagen
+const imagePopup = new PopupWithImage(".modal_type_image");
+
+//Instancia de UserInfo
+const userInfo = new UserInfo({
+  nameSelector: ".profile__info-name",
+  jobSelector: ".profile__info-job",
+});
+const datos = userInfo.getUserInfo();
+
+//aplicacion de eventos para guardar titulo y url de nueva imagen
+/*
 formP.addEventListener("submit", function (event) {
   event.preventDefault();
 
@@ -83,3 +100,4 @@ formP.addEventListener("submit", function (event) {
   }
   popup.classList.remove("modal--active");
 });
+*/
