@@ -14,14 +14,7 @@ export default class UserInfo {
 
   //metodo publico que toma los datos del nuevo usuario y los agrega en la página
   setUserInfo(userData) {
-    console.log("Dentro de setUserInfo - userData recibido:", userData);
-    console.log("userData.about:", userData.about);
-
     this._nameElement.textContent = userData.name;
     this._jobElement.textContent = userData.about;
-    console.log(
-      "Después de asignar - jobElement.textContent:",
-      this._jobElement.textContent
-    );
   }
 }
