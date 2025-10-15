@@ -5,6 +5,8 @@ import { initialCards } from "./utils.js";
 import PopupWithForm from "./components/PopupWithForm.js";
 import PopupWithImage from "./components/PopupWithImage.js";
 import UserInfo from "./components/UserInfo.js";
+import Api from "./components/Api.js";
+import PopupWithConfirmation from "./components/PopupWithConfirmation.js";
 
 //objeto de config de validation
 const validationConfig = {
@@ -15,46 +17,134 @@ const validationConfig = {
   inputErrorClass: "modal__input_type_error",
   errorClass: "modal__input-error_active",
 };
-//instancia de la clase Section
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (cardData) => {
-      const card = new Card(cardData, "#card-template", handleCardClick);
-      const cardElement = card.generateCard();
-      cardSection.addInitialItem(cardElement);
-    },
+
+//Instancia de Api
+const api = new Api({
+  baseUrl: "https://around-api.es.tripleten-services.com/v1",
+  headers: {
+    authorization: "ba6770a4-f21f-4ddd-977e-1f1898f269d8",
+    "Content-Type": "application/json",
   },
-  ".elements__container"
-);
-cardSection.renderItems();
+});
 
-// Instancia de la clase PopupWithForm para agregar nuevas tarjetas
-//primero adatar la funcion callback
-function handleAddCardSubmit(FormData) {
-  const newCard = {
-    name: FormData.title,
-    link: FormData.imgLink,
-  };
-  const card = new Card(newCard, "#card-template", handleCardClick);
-  const cardElement = card.generateCard();
-  cardSection.addNewItem(cardElement);
-  addCardPopup.close();
-}
+//instancia de la clase Section
+let cardSection;
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([userData, cardsData]) => {
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.about,
+    });
+    userInfo.setUserAvatar(userData.avatar);
+    cardSection = new Section(
+      {
+        items: cardsData,
+        renderer: (cardData) => {
+          const card = new Card(
+            cardData,
+            "#card-template",
+            handleCardClick,
+            handleDeleteConfirmation,
+            api
+          );
+          const cardElement = card.generateCard();
+          cardSection.addInitialItem(cardElement);
+        },
+      },
+      ".elements__container"
+    );
+    cardSection.renderItems();
 
-const addCardPopup = new PopupWithForm("#popup", handleAddCardSubmit);
-addCardPopup.setEventListeners();
+    // adatar la funcion callback
+    function handleAddCardSubmit(inputValues) {
+      const submitButton = addCardPopup.getSubmitButton("submitButton");
+      addCardPopup.renderLoading(true, submitButton);
 
-//Instanciia de PopupWithForm para editar perfil
-function handleEditProfileSubmit(formData) {
-  userInfo.setUserInfo({
-    name: formData.name,
-    about: formData.about,
-  });
-  editProfilePopup.close();
+      const cardData = {
+        title: inputValues.title,
+        imgLink: inputValues.imgLink,
+      };
+      api
+        .addCard(cardData)
+        .then((cardInfo) => {
+          const newCard = new Card(
+            cardInfo,
+            "#card-template",
+            handleCardClick,
+            handleDeleteConfirmation,
+            api
+          );
+          const cardElement = newCard.generateCard();
+          cardSection.addNewItem(cardElement);
+          addCardPopup.close();
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          addCardPopup.renderLoading(false, submitButton);
+        });
+    }
+    // Instancia de la clase PopupWithForm para agregar nuevas tarjetas
+
+    const addCardPopup = new PopupWithForm("#popup", handleAddCardSubmit);
+    addCardPopup.setEventListeners();
+  })
+  .catch((err) => console.log(err));
+
+//Instancia de PopupWithForm para editar perfil
+function handleEditProfileSubmit(profileData) {
+  const submitButton = editProfilePopup.getSubmitButton("acc");
+  editProfilePopup.renderLoading(true, submitButton);
+
+  api
+    .updateUserInfo({
+      name: profileData.name,
+      about: profileData.about,
+    })
+    .then((updatedUserData) => {
+      userInfo.setUserInfo({
+        name: updatedUserData.name,
+        about: updatedUserData.about,
+      });
+      editProfilePopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally(() => {
+      editProfilePopup.renderLoading(false, submitButton);
+    });
 }
 const editProfilePopup = new PopupWithForm("#modal", handleEditProfileSubmit);
 editProfilePopup.setEventListeners();
+
+//Instancia de PopupWithForm para foto de perfil
+const popupEditAvatar = new PopupWithForm("#popupAvatar", (inputValues) => {
+  const submitButton = popupEditAvatar.getSubmitButton("submitButtonAvatar");
+  popupEditAvatar.renderLoading(true, submitButton);
+
+  api
+    .updateUserAvatar(inputValues.AvatarLink)
+    .then((updatedUser) => {
+      userInfo.setUserAvatar(updatedUser.avatar);
+      popupEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log("Error al actualizar avatar:", err);
+    })
+    .finally(() => {
+      popupEditAvatar.renderLoading(false, submitButton);
+    });
+});
+popupEditAvatar.setEventListeners();
+
+//event listener para abrir form de avatar
+const avatarEditIcon = document.querySelector(".profile__avatar-edit-icon");
+
+avatarEditIcon.addEventListener("click", () => {
+  popupEditAvatar.open();
+});
 
 // instancia de Formulario FormValidator
 const forms = document.querySelectorAll(".modal__profile-form");
@@ -75,29 +165,24 @@ const imagePopup = new PopupWithImage(".modal_type_image");
 const userInfo = new UserInfo({
   nameSelector: ".profile__info-name",
   jobSelector: ".profile__info-job",
+  avatarSelector: ".profile__avatar",
 });
-const datos = userInfo.getUserInfo();
 
-//aplicacion de eventos para guardar titulo y url de nueva imagen
-/*
-formP.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  const newCard = {
-    name: titleInput.value,
-    link: urlImg.value,
-  };
-
-  if (newCard.name && newCard.link) {
-    initialCards = [newCard, ...initialCards];
-
-    const card = new Card(newCard, "#card-template");
-    const cardElement = card.generateCard();
-
-    gallery.prepend(cardElement);
-
-    formP.reset();
-  }
-  popup.classList.remove("modal--active");
-});
-*/
+//funcion para manejar la confirmacion de eliminacion
+function handleDeleteConfirmation(card) {
+  deleteCardPopup.open();
+  deleteCardPopup.setSubmitAction(() => {
+    api
+      .deleteCard(card.getId())
+      .then(() => {
+        card.removeCard();
+        deleteCardPopup.close();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
+}
+//Instancia de PopupWithConfirmation
+const deleteCardPopup = new PopupWithConfirmation("#confirmDeletePopup");
+deleteCardPopup.setEventListeners();

@@ -66,6 +66,11 @@
   background-color: #fff;
 }
 
+.modal_type_confirmation .modal__profile-submit {
+  background-color: #000000;
+  color: white;
+}
+
 .modal--active {
   visibility: visible;
   opacity: 1;

@@ -24,11 +24,18 @@
       </header>
       <main class="content">
         <section class="profile">
-          <img
-            class="profile__avatar"
-            src="./images/image.jpg"
-            alt="Imagen de perfil"
-          />
+          <div class="profile__avatar-container">
+            <img
+              class="profile__avatar"
+              src="./images/image.jpg"
+              alt="Imagen de perfil"
+            />
+            <img
+              class="profile__avatar-edit-icon"
+              src="./images/Vectoravatar.svg"
+              alt="foto de perfil"
+            />
+          </div>
           <div class="profile__info">
             <h2 class="profile__info-name">Jacques Cousteau</h2>
             <p class="profile__info-job">Explorador</p>
@@ -181,6 +188,56 @@
           <img class="modal__image" src="#" alt="imagen ampliada" />
         </div>
       </div>
+      <div id="confirmDeletePopup" class="modal modal_type_confirmation">
+        <div class="modal__content">
+          <img
+            id="closeConfirmPopup"
+            class="modal__close-icon"
+            src="./images/closeicon.svg"
+            alt="Close"
+          />
+          <h2 class="modal__title">¿Estás seguro/a?</h2>
+          <button
+            id="confirmDeleteButton"
+            type="button"
+            class="modal_type_confirm modal__profile-submit"
+          >
+            Si
+          </button>
+        </div>
+      </div>
+      <div id="popupAvatar" class="modal">
+        <div class="modal__content">
+          <img
+            id="closePopupAvatar"
+            class="modal__close-icon"
+            src="./images/closeicon.svg"
+            alt="Close"
+          />
+          <h2 class="modal__title">Cambiar foto de perfil</h2>
+          <form id="popupEditAvatar" class="modal__profile-form" novalidate>
+            <div>
+              <label for="AvatarLink">Enlace a la imagen</label>
+              <input
+                type="url"
+                id="AvatarLink"
+                name="AvatarLink"
+                placeholder="Enlace a la imagen"
+                class="modal__profile-input"
+                required
+              />
+              <span id="AvatarLink-error" class="modal__input-error"></span>
+            </div>
+            <button
+              id="submitButtonAvatar"
+              type="submit"
+              class="modal__profile-submit"
+            >
+              Guardar
+            </button>
+          </form>
+        </div>
+      </div>
       <footer class="footer">
         <div>
           <p class="footer__copyright">© 2025 Around The U.S.</p>
@@ -191,6 +248,10 @@
     <script type="module" src="./scripts/components/PopupWithForm.js"></script>
     <script type="module" src="./scripts/components/Popup.js"></script>
 
+    <script
+      type="module"
+      src="./scripts/components/PopupWithConfirmation.js"
+    ></script>
     <script type="module" src="./scripts/components/Section.js"></script>
     <script type="module" src="./scripts/components/Card.js"></script>
     <script type="module" src="./scripts/components/FormValidator.js"></script>

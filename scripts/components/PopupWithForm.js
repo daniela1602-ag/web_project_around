@@ -29,4 +29,23 @@ export default class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
+  //metodo para el texto guardando... mientras se carga
+  renderLoading(
+    isLoading,
+    button,
+    originalText = "Guardar",
+    loadingText = "Guardando..."
+  ) {
+    if (isLoading) {
+      button.textContent = loadingText;
+      button.disabled = true; //opcional: deshabilitar el boton mientras carga
+    } else {
+      button.textContent = originalText;
+      button.disabled = false;
+    }
+  }
+  //metodo para obtener la referencia al boton de submit del formulario
+  getSubmitButton(buttonId) {
+    return this._popup.querySelector(`#${buttonId}`);
+  }
 }

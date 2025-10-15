@@ -1,20 +1,27 @@
 export default class UserInfo {
-  constructor(selectors) {
-    this._nameElement = document.querySelector(selectors.nameSelector);
-    this._jobElement = document.querySelector(selectors.jobSelector);
+  constructor({ nameSelector, jobSelector, avatarSelector }) {
+    this._nameElement = document.querySelector(nameSelector);
+    this._jobElement = document.querySelector(jobSelector);
+    this._avatarElement = document.querySelector(avatarSelector);
   }
 
   //metodo publico que devuelve un objeto con información sobre el usuario
   getUserInfo() {
     return {
       name: this._nameElement.textContent,
-      job: this._jobElement.textContent,
+      about: this._jobElement.textContent,
     };
   }
 
   //metodo publico que toma los datos del nuevo usuario y los agrega en la página
-  setUserInfo(userData) {
-    this._nameElement.textContent = userData.name;
-    this._jobElement.textContent = userData.about;
+  setUserInfo({ name, about }) {
+    this._nameElement.textContent = name;
+    this._jobElement.textContent = about;
+  }
+
+  //metodo para actuualizar el avatar
+  setUserAvatar(avatarUrl) {
+    this._avatarElement.src = avatarUrl;
+    this._avatarElement.alt = "Foto de perfil";
   }
 }

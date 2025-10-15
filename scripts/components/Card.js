@@ -1,9 +1,13 @@
 export default class Card {
-  constructor(data, templateSelector, handleCardClick) {
+  constructor(data, templateSelector, handleCardClick, handleDeleteClick, api) {
     this._name = data.name;
     this._link = data.link;
+    this._id = data._id;
+    this._isLiked = data.isLiked;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteClick = () => handleDeleteClick(this);
+    this._api = api;
   }
   //metodo privado: obtener plantilla
   _getTemplate() {
@@ -17,20 +21,50 @@ export default class Card {
 
   //metodo privado: manejar el like
   _handleLike() {
-    this._likeButton.classList.toggle("elements__card-image-button--active");
-    if (
-      this._likeButton.classList.contains("elements__card-image-button--active")
-    ) {
-      this._likeIcon.src = "./images/vectorblack.svg";
+    console.log("ID de la tarjeta:", this._id); // ← Agregar esto
+    console.log("Estado del like:", this._isLiked); // ← Y esto también
+
+    if (this._isLiked) {
+      this._api
+        .removeLike(this._id)
+        .then(() => {
+          this._isLiked = false;
+          this._likeButton.classList.remove(
+            "elements__card-image-button--active"
+          );
+          this._likeIcon.src = "./images/vectorcorazon.svg";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      this._likeIcon.src = "./images/vectorcorazon.svg";
+      this._api
+        .addLike(this._id)
+        .then(() => {
+          this._isLiked = true;
+          this._likeButton.classList.add("elements__card-image-button--active");
+          this._likeIcon.src = "./images/vectorblack.svg";
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
-  //metodo privado: boton eliminar
-  _handleDelete() {
+  //metodo para acceder al id de cada tarjeta
+  getId() {
+    return this._id;
+  }
+
+  //metodo para borrar del DOM
+  removeCard() {
     this._element.remove();
     this._element = null;
+  }
+
+  //metodo privado: boton eliminar
+  _handleDeleteClickEvent() {
+    this._handleDeleteClick();
   }
   /*
   //metodo privado: visualización de imagen
@@ -46,7 +80,9 @@ export default class Card {
   //metodo privado: asignar eventos
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => this._handleLike());
-    this._deleteButton.addEventListener("click", () => this._handleDelete());
+    this._deleteButton.addEventListener("click", () =>
+      this._handleDeleteClickEvent()
+    );
     this._element
       .querySelector(".elements__image")
       .addEventListener("click", () => {
@@ -67,6 +103,13 @@ export default class Card {
       ".elements__card-image-button"
     );
     this._likeIcon = this._element.querySelector(".elements__card-like-icon");
+    if (this._isLiked) {
+      this._likeButton.classList.add("elements__card-image-button--active");
+      this._likeIcon.src = "./images/vectorblack.svg";
+    } else {
+      this._likeButton.classList.remove("elements__card-image-button--active");
+      this._likeIcon.src = "./images/vectorcorazon.svg";
+    }
     this._deleteButton = this._element.querySelector(
       ".elements__card-delete-button"
     );

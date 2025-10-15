@@ -16,4 +16,6 @@ Tambien se implemento el uso de export e import entre los módulos.
 
 Quinta parte del proyecto: se refactorizó, esta vez se crearon las clases de Popup, PopupWithForm, PopupWithImage, Section y UserInfo, para organizar las tareas específicas para cada clase y comunicarse a traves de callbacks. Se implementó la herencia, con la clase Popup, y la encapsulación, con métodos privados en Popup y PopupWithForm. Tambien se implementó el acoplamiento debil.
 
+Sexta parte del proyecto: se implementaron nuevas funcionalidades, empezando por las operaciones asíncronas: se trabajo con fetch() , se manejaron operaciones que toman tiempo( como cargar datos del servidor) , se utilizó Promise(then y catch) para manejar respuuestas exitosas y errores y se implemento Promise.all para cargar datos del usuario y tarjetas simultáneamente, el proyecto se conectó a una API real, y se usó un token de autenticación en los headers, se utilizó métodos HTTP y API (GET, POST, PUT, DELETE, PATCH) y todos estos métodos se organizaron en la clase Api.js que se creó para esto y por último, implemente res.ok y Promise.reject() para el manejo de errores.
+
 Mi proyecto: https://daniela1602-ag.github.io/web_project_around/
